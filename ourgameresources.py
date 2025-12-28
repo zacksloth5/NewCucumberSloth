@@ -2,6 +2,7 @@ resources = []
 class resource:
     def __init__(self,name,amount=0,condition=""):
         self.amount = amount
+        self.name = name
         self.condition = condition
         resources.append(self)
 
