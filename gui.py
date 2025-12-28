@@ -1,7 +1,6 @@
 global eatclock, berries_button, berries_counter, brainstorm_button, science_counter, dialogue_label, brainstorm_id, research_there, root, fruit, vegetable
 import platform
 from ourgameresources import *
-from ourvariables import *
 import tkinter as tk
 from user import *
 from dialogue import *
@@ -23,28 +22,17 @@ def enable(press_button):
 def frame():
     global research_there
     global brainstorm_id
-    if research_there == False:
+    if st.gui.buttons.research.onScreen == False:
         if getamount("science") >= 2:
             research_button.place(x=root.winfo_screenwidth()/2-root.winfo_screenwidth()/10, y=root.winfo_screenheight()-root.winfo_screenheight()/10*9)
             research_there = True
     now = time.time()
     if not hasattr(st, "last_eat_time"):
         st.last_eat_time = now    
-    if int(now) - int(st.last_eat_time) >= int(st.eat_interval):
+    if int(now) - int(st.last_eat_time) >= int(st.eat.Interval):
         if havefood():
             eat()  # This should set st.ranout to "berries", "vegetables", or "fruits"
-            if st.ranout == "berries":
-                dialogue_pop_up("You have eaten berries.")
-            elif st.ranout == "vegetables":
-                dialogue_pop_up("You have eaten vegetables.")
-            elif st.ranout == "fruits":
-                dialogue_pop_up("You have eaten fruits.")
-            else:
-                dialogue_pop_up("You have eaten food.")
-        elif st.printedmessage == True:
-            if brainstorm_id is not None:
-                root.after_cancel(brainstorm_id)
-
+            dialogue_pop_up(f"You have eaten {st.eat.lastEatenFood}.")
         else:
             disable(brainstorm_button)
             dialogue_pop_up("You are starving! You can only gather food.")
