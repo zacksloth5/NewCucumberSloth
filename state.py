@@ -18,14 +18,17 @@ st = Path()
 
 #Eating Path Variables
 st.eat.eatClock = 1200
-st.eat.ranout = ""
+st.eat.priorities = ["berries", "vegetables", "fruits"]
 st.eat.food = True
 st.eat.starving = False
 st.eat.lastEatTime = time.time()
-st.eat.eatInterval = 20
+st.eat.lastEatenFood = ""
+st.eat.Interval = 20
 
 #Button Path Variables
 st.gui.buttons.branstorm.onScreen = True
 st.gui.buttons.berries.onScreen = True
 st.gui.buttons.research.onScreen = False
+
+
 
