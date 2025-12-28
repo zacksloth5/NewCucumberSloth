@@ -26,31 +26,30 @@ def frame():
         if getamount("science") >= 2:
             research_button.place(x=root.winfo_screenwidth()/2-root.winfo_screenwidth()/10, y=root.winfo_screenheight()-root.winfo_screenheight()/10*9)
             research_there = True
-    now = time.time()
-    if not hasattr(st, "last_eat_time"):
-        st.last_eat_time = now    
-    if int(now) - int(st.last_eat_time) >= int(st.eat.Interval):
-        if havefood():
+    timeOfFrame = time.time()    
+
+    if int(timeOfFrame) - int(st.eat.lastEatTime) >= int(st.eat.Interval):
+
+        if haveFood():
             eat()  # This should set st.ranout to "berries", "vegetables", or "fruits"
             dialogue_pop_up(f"You have eaten {st.eat.lastEatenFood}.")
+        
         else:
             disable(brainstorm_button)
             dialogue_pop_up("You are starving! You can only gather food.")
-
-            st.printedmessage = True
-            st.food = False
-            st.starving = True
+            st.eat.food = False
+            st.eat.starving = True
             update()
-            st.last_eat_time = now
-            return
-        st.last_eat_time = now
+        
+        st.eat.lastEatTime = timeOfFrame
 
-    if st.food == False and havefood() == True:
+    if st.eat.food == False and haveFood() == True:
         eat()
-        dialogue_pop_up("You have eaten food. You are no longer starving.")
+        dialogue_pop_up(f"You have eaten {st.eat.lastEatenFood}. You are no longer starving.")
         brainstorm_button.config(state="normal")
-        st.food = True
-        st.starving = False
+        st.eat.food = True
+        st.eat.starving = False
+    
     update()
 
 def game():
