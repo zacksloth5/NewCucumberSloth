@@ -10,7 +10,7 @@ def eat():
             st.eat.lastEatenFood = food_type
             return
     
-def havefood():
+def haveFood():
     if getamount("berries") > 0 or getamount("vegetables") > 0 or getamount("fruits") > 0:
         return True
     else:
