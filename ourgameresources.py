@@ -15,40 +15,37 @@ class resource:
     def setamount(self,amount):
         self.amount = amount
 
-def getamount(name,condition=""):
-    for resource in resources:
-        if resource.name == name and resource.condition == condition:
-            return resource.amount
+def getamount(resourceName,condition=""):
+    for x in resources:
+        if x.name == resourceName and x.condition == condition:
+            return x.amount
     return Exception("Resource does not exist")
 
-def changeamount(name,change,condition=""):
-    for resource in resources:
-        if resource.name == name and resource.condition == condition:
-            resource.amount += change
+def changeamount(resourceName,change,condition=""):
+    for x in resources:
+        if x.name == resourceName and x.condition == condition:
+            x.amount += change
             return
     return Exception("Resource does not exist")
 
-def setamount(name,amount,condition=""):
-    for resource in resources:
-        if resource.name == name and resource.condition == condition:
-            resource.amount = amount
+def setamount(resourceName,amount,condition=""):
+    for x in resources:
+        if x.name == resourceName and x.condition == condition:
+            x.amount = amount
             return
     return Exception("Resource does not exist")
 
 
-foodTypes = ['Raw', 'Fried', 'Roasted']
+foodTypes = ['raw', 'fried', 'roasted']
 
 
-resource("Wood")
-resource("Berries")
-resource("Science")
-resource("Fruits")
-resource("Vegetables")
+resource("wood")
+resource("berries")
+resource("science")
+resource("fruits")
+resource("vegetables")
 
 for meatType in foodTypes:
-    resource("Meat",0,meatType)
-
+    resource("meat",0,meatType)
 for fishType in foodTypes:
-    resource("Fish",0,fishType)
-
-
+    resource("fish",0,fishType)
