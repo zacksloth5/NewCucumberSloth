@@ -1,44 +1,51 @@
-from ourvariables import *
+resources = []
+class resource:
+    def __init__(self,name,amount=0,condition=""):
+        self.amount = amount
+        self.name = name
+        self.condition = condition
+        resources.append(self)
 
-def getamount(resource,condition=""):
-    if resource in resourcedictionary:
-        return resourcedictionary[resource]
-    elif resource in fooddictionary:
-        if type(fooddictionary[resource]) is dict:
-            if condition == "raw" or condition == "fried" or condition == "roasted":
-                return fooddictionary[resource][condition]
-            else:
-                return "FoodTypeError"
-        else:
-            return fooddictionary[resource]
-        
-    else:
-        return "GetResourceAmountError"
+    def getamount(self):
+        return self.amount
 
-def changeamount(resource,change,condition=""):
-    if resource in resourcedictionary:
-        resourcedictionary[resource] = resourcedictionary[resource] + change
-    elif resource in fooddictionary:
-        if type(fooddictionary[resource]) is dict:
-            if condition == "raw" or condition == "fried" or condition == "roasted":
-                fooddictionary[resource][condition] = fooddictionary[resource][condition] + change
-            else:
-                return "FoodTypeError"
-        else:
-            fooddictionary[resource] = fooddictionary[resource] + change
-    else:
-        return "ChangeResourceAmountError"
+    def changeamount(self,change):
+        self.amount += change
 
-def setamount(resource,amount,condition =""):
-    if resource in resourcedictionary:
-        resourcedictionary[resource] = amount
-    elif resource in fooddictionary:
-        if type(fooddictionary[resource]) is dict:
-            if condition == "raw" or condition == "fried" or condition == "roasted":
-                fooddictionary[resource][condition] = amount
-            else:
-                return "FoodTypeError"
-        else:
-            fooddictionary[resource] = amount
-    else:
-        return "SetResourceAmountError"
+    def setamount(self,amount):
+        self.amount = amount
+
+def getamount(resourceName,condition=""):
+    for x in resources:
+        if x.name == resourceName and x.condition == condition:
+            return x.amount
+    return Exception("Resource does not exist")
+
+def changeamount(resourceName,change,condition=""):
+    for x in resources:
+        if x.name == resourceName and x.condition == condition:
+            x.amount += change
+            return
+    return Exception("Resource does not exist")
+
+def setamount(resourceName,amount,condition=""):
+    for x in resources:
+        if x.name == resourceName and x.condition == condition:
+            x.amount = amount
+            return
+    return Exception("Resource does not exist")
+
+
+foodTypes = ['raw', 'fried', 'roasted']
+
+
+resource("wood")
+resource("berries")
+resource("science")
+resource("fruits")
+resource("vegetables")
+
+for meatType in foodTypes:
+    resource("meat",0,meatType)
+for fishType in foodTypes:
+    resource("fish",0,fishType)

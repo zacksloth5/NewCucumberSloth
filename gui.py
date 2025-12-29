@@ -1,7 +1,6 @@
 global eatclock, berries_button, berries_counter, brainstorm_button, science_counter, dialogue_label, brainstorm_id, research_there, root, fruit, vegetable
 import platform
 from ourgameresources import *
-from ourvariables import *
 import tkinter as tk
 from user import *
 from dialogue import *
@@ -23,46 +22,34 @@ def enable(press_button):
 def frame():
     global research_there
     global brainstorm_id
-    if research_there == False:
+    if st.gui.buttons.research.onScreen == False:
         if getamount("science") >= 2:
             research_button.place(x=root.winfo_screenwidth()/2-root.winfo_screenwidth()/10, y=root.winfo_screenheight()-root.winfo_screenheight()/10*9)
             research_there = True
-    now = time.time()
-    if not hasattr(st, "last_eat_time"):
-        st.last_eat_time = now    
-    if int(now) - int(st.last_eat_time) >= int(st.eat_interval):
-        if havefood():
-            eat()  # This should set st.ranout to "berries", "vegetables", or "fruits"
-            if st.ranout == "berries":
-                dialogue_pop_up("You have eaten berries.")
-            elif st.ranout == "vegetables":
-                dialogue_pop_up("You have eaten vegetables.")
-            elif st.ranout == "fruits":
-                dialogue_pop_up("You have eaten fruits.")
-            else:
-                dialogue_pop_up("You have eaten food.")
-        elif st.printedmessage == True:
-            if brainstorm_id is not None:
-                root.after_cancel(brainstorm_id)
+    timeOfFrame = time.time()    
 
+    if int(timeOfFrame) - int(st.eat.lastEatTime) >= int(st.eat.Interval):
+
+        if haveFood():
+            eat()  # This should set st.ranout to "berries", "vegetables", or "fruits"
+            dialogue_pop_up(f"You have eaten {st.eat.lastEatenFood}.")
+        
         else:
             disable(brainstorm_button)
             dialogue_pop_up("You are starving! You can only gather food.")
-
-            st.printedmessage = True
-            st.food = False
-            st.starving = True
+            st.eat.food = False
+            st.eat.starving = True
             update()
-            st.last_eat_time = now
-            return
-        st.last_eat_time = now
+        
+        st.eat.lastEatTime = timeOfFrame
 
-    if st.food == False and havefood() == True:
+    if st.eat.food == False and haveFood() == True:
         eat()
-        dialogue_pop_up("You have eaten food. You are no longer starving.")
+        dialogue_pop_up(f"You have eaten {st.eat.lastEatenFood}. You are no longer starving.")
         brainstorm_button.config(state="normal")
-        st.food = True
-        st.starving = False
+        st.eat.food = True
+        st.eat.starving = False
+    
     update()
 
 def game():
