@@ -17,7 +17,7 @@ dialogue = {
     "2": "You are paying close attention for beasts when you find a berry bush with some berries on it."
 },
 "wood": {
-    "120": "You chop down a tree and chop it into smaller pieces, and gain wood.",
+    "120": "You cut down a tree and chop it into smaller pieces, and gain wood.",
     "60": "You find a fallen tree and chop it up, and gain wood.",
     "90": "You find a tree after some searching that has fallen down, and chop it up and get wood."
 }
